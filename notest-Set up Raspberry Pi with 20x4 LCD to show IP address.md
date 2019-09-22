@@ -51,3 +51,7 @@ Everything works great.
 
 ## Develop code to show ip address
 
+From `~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address` copy files to RPi:
+
+    rsync -aP --exclude='__pycache__' --exclude='.git/' --exclude='.gitignore' --exclude='.DS_Store' . pi@10.37.203.150:/home/pi/code/serlcd_ip_address/
+
