@@ -1,5 +1,21 @@
 # Set up Raspberry Pi with 20x4 LCD to show IP address
 
+## Wiring
+
+[Raspberry Pi pinout diagram](https://pinout.xyz)
+
+**Overview**  
+![](190321_wiring1.jpg)
+
+**serLCD connections 1**  
+![](190321_wiring2.jpg)
+
+**serLCD connections 2**  
+![](190321_wiring3.jpg)
+
+**RPi connections**  
+![](190321_wiring4.jpg)
+
 ## First talk to serLCD
 
 Follow [AVR-Based Serial Enabled LCDs Hookup Guide](https://learn.sparkfun.com/tutorials/avr-based-serial-enabled-lcds-hookup-guide/all#i2c-hardware-hookup--example-code---basic) to hook up [SparkFun 20x4 SerLCD - Black on RGB 3.3V](https://www.sparkfun.com/products/14074) to Raspberry Pi 3B+ I2C1 to LCD's I2C.
@@ -52,12 +68,12 @@ Everything works great.
     
 ## Set up python script to run every time RPi starts up
 
-Make`serlcd.py` run on startup by: 
+Make`ip_address_on_serLCD.py` run on startup by: 
 
 1) Edit `rc.local`
 
 - Run `sudo nano /etc/rc.local`   
-- Add the line `python3 /home/pi/code/RPi_email_ip_address/serlcd.py > home/pi/code/RPi_email_ip_address/serlcd.log 2>&1` at the bottom of file on the line before `exit 0`    
+- Add the line `/home/pi/code/RPi_serLCD_ip_address/ip_address_on_serLCD.py > /home/pi/code/RPi_serLCD_ip_address/ip_address_on_serLCD.log 2>&1` at the bottom of file on the line before `exit 0`    
 - Save and exit with `<Cntl+o>` then `<Enter>` then `<Cntl+x>`  
 
 2) Test with `sudo reboot` and see if the IP address is shown on the serLCD. This should happen 30 seconds after boot (to allow time to connect to the internet)
@@ -82,6 +98,7 @@ Contents of `~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address`
 
 From `~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address` copy files to RPi:
 
+    rsync -P ip_address_on_serLCD.py pi@xx.xx.xx.xx:/home/pi/code/serlcd_ip_address/
     rsync -P serlcd.py pi@xx.xx.xx.xx:/home/pi/code/serlcd_ip_address/
     
 ## Change file permissions
