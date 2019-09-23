@@ -47,41 +47,47 @@ Try out using this code to write to LCD:
     >>> lcd.write("aa")
     >>> lcd.clear()
     
-Everything works great.
+Everything works great.   
+    
+    
+## Set up python script to run every time RPi starts up
+
+Make`serlcd.py` run on startup by: 
+
+1) Edit `rc.local`
+
+- Run `sudo nano /etc/rc.local`   
+- Add the line `python3 /home/pi/code/RPi_email_ip_address/serlcd.py > home/pi/code/RPi_email_ip_address/serlcd.log 2>&1` at the bottom of file on the line before `exit 0`    
+- Save and exit with `<Cntl+o>` then `<Enter>` then `<Cntl+x>`  
+
+2) Test with `sudo reboot` and see if the IP address is shown on the serLCD. This should happen 30 seconds after boot (to allow time to connect to the internet)
+
+
+# Alternative using Adafruit LCD display
+
+[How to Find IP Address of Raspberry Pi using Python Script](https://circuitdigest.com/microcontroller-projects/display-ip-address-of-raspberry-pi)
+
+
+# Old - disregard
 
 ## Develop code to show ip address
 
-`~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address`
+Contents of `~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address`
 
     $ ls -l
-    total 32
-    -rw-r--r--  1 nordin  staff  1722 Sep 21 19:36 ip_address_on_serLCD.py
-    -rw-r--r--@ 1 nordin  staff  3009 Sep 21 19:38 notest-Set up Raspberry Pi with 20x4 LCD to show IP address.md
+    -rw-r--r--@ 1 nordin  staff  3454 Sep 23 10:20 README.md
+    -rw-r--r--  1 nordin  staff  1730 Sep 23 10:08 ip_address_on_serLCD.py
     -rwxr-xr-x@ 1 nordin  staff  6533 Mar 20  2019 serlcd.py
 
 
 From `~/Documents/Projects/raspberry_pi/RPi_serLCD_ip_address` copy files to RPi:
 
-    rsync -aP --exclude='__pycache__' --exclude='.git/' --exclude='.gitignore' --exclude='.DS_Store' . pi@10.37.203.150:/home/pi/code/serlcd_ip_address/
+    rsync -P serlcd.py pi@xx.xx.xx.xx:/home/pi/code/serlcd_ip_address/
     
-    
-    
-    
-## Set up python script to run every time RPi starts up
+## Change file permissions
 
 1) Set file permissions to be able to be executed on startup: `chmod 755 ip_address_on_serLCD.py` (This is not really needed)
 
-2) Make it run on startup by: 
 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Run `sudo nano /etc/rc.local`   
 
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Add the line `python3 /home/pi/code/RPi_email_ip_address/startup_mailer.py > home/pi/code/RPi_email_ip_address/startup_mailer.log 2>&1` at the bottom of file on the line before `exit 0`    
-
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Save and exit with `<Cntl+o>` then `<Enter>` then `<Cntl+x>`  
-
-3) Test with `sudo reboot` and see if you get the email. The email will send 30 seconds after boot (to allow time for the internet to connect itself)
-
-# Alternative with Adafruit LCD display
-
-[How to Find IP Address of Raspberry Pi using Python Script](https://circuitdigest.com/microcontroller-projects/display-ip-address-of-raspberry-pi)
 
