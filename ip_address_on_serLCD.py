@@ -1,3 +1,4 @@
+import datetime
 import subprocess
 import time
 
@@ -15,16 +16,13 @@ def connect_type(word_list):
         con_type = 'current'
     return con_type
 
+time.sleep(30)
+
 lcd = SerLCD()
 
 lcd.setBacklight(64, 64, 64)
 lcd.noCursor()
 lcd.clear()
-# lcd.write("Hello World!")
-# lcd.setCursor(0, 1)
-# lcd.write("Line 2")
-# lcd.setCursor(0, 2)
-# lcd.write("Line 3")
 
 arg='ip route list'  # Linux command to retrieve ip addresses.
 # Runs 'arg' in a 'hidden terminal'.
@@ -52,6 +50,8 @@ my_ip_a1 = '%s IP:' % (ip_type_a)
 my_ip_a2 = '%s' % (ipaddr_a)
 my_ip_b = '%s IP: %s' % (ip_type_b, ipaddr_b)
 
+date_and_time = datetime.datetime.now().strftime('%Y_%m_%d__%H_%M_%S')
+print(date_and_time)
 print(my_ip_a1)
 print(my_ip_a2)
 
